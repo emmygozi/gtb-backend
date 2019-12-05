@@ -2,11 +2,14 @@
   "name": "gtb-backend",
   "version": "1.0.0",
   "description": "Backend",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "DEBUG=app nodemon ./server/app.js --exec babel-node",
+    "start": "node ./dist/app.js",
+    "start:dev": "DEBUG=app nodemon ./server/app.js --exec babel-node",
     "build": "npm run clean && babel ./server -d ./dist",
     "clean": "rm -rf dist",
+    "create:db": "NODE_ENV=development babel-node ./server/db/runScript.js",
+    "create:distributors": "NODE_ENV=development babel-node ./server/db/createDistributors.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "rm -rf ./server/database_test.sqlite3 && NODE_ENV=test npm run refreshdb",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text --require @babel/register --env=test mocha --timeout 10000 ./server/tests/**/*.test.js --exit"
@@ -51,7 +54,6 @@
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.2",
     "random-string": "^0.2.0",
-    "randomstring": "^1.1.5",
     "sinon": "^7.3.2",
     "slugify": "^1.3.4",
     "sqlite3": "^4.0.8"

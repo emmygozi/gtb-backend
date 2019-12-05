@@ -3,6 +3,7 @@ import debug from 'debug';
 import logger from 'morgan';
 import { config } from 'dotenv';
 import bodyParser from 'body-parser';
+import apis from './routes/index';
 
 const debugged = debug('app');
 config();
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// app.use('/api/v1', apis);
+app.use('/api/v1', apis);
 
 
 app.use((request, response, next) => {
