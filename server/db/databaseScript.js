@@ -37,7 +37,8 @@ DROP TABLE IF EXISTS account CASCADE; CREATE TABLE IF NOT EXISTS account (
   DROP TABLE IF EXISTS distributors CASCADE; CREATE TABLE IF NOT EXISTS distributors (
    id SERIAL,
    name varchar(100) NOT NULL,
-   logourl varchar(900) NOT NULL,
+   logourl varchar(900),
+   phoneNumber varchar(900),
    userid varchar(100) NOT NULL,
    accountid INTEGER NOT NULL,
    location character varying(400) NOT NULL,
