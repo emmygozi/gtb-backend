@@ -7,6 +7,13 @@ DROP TABLE IF EXISTS account CASCADE; CREATE TABLE IF NOT EXISTS account (
    accountbalance varchar(200),
    averageinflow varchar(200),
    averageoutflow varchar(200),
+   age varchar(50),
+   returnedchequecount varchar(100),
+   taxid varchar(200),
+   minmonthlodgement varchar(200),
+   minqtlodgement varchar(200),
+   classificationname varchar(200),
+   yearlyturnover varchar(200),
    PRIMARY KEY (id),
    UNIQUE (id,bvn)
   );

@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import debuggerconsole from 'debug';
 import pool from '../db/config';
 import generateJwtToken from '../helpers/generateJwtToken';
-// import sendMail from '../helpers/sendMail';
+import { distrSignupMail } from '../helpers/mailGen';
 
 const mydebugger = debuggerconsole('app:startup');
 class Users {
@@ -41,6 +41,8 @@ class Users {
     VALUES ('${name}', '${email}', '${logourl}', '${userid}', '${hashedPassword}', ${accountid}
     , '${location}' ) RETURNING id, 
     name, email, logourl, userid, accountid, location`);
+
+    distrSignupMail(email, name);
 
 
     const token = generateJwtToken(
