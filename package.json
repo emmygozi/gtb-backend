@@ -7,7 +7,7 @@
     "prestart": "npm run create:db && npm run create:account && npm run create:bank && npm run create:distributors && npm run create:manufacturer && npm run create:product && npm run create:paymentoption",
     "start": "node ./dist/app.js",
     "start:dev": "DEBUG=app nodemon ./server/app.js --exec babel-node",
-    "build": "npm run clean && babel ./server -d ./dist",
+    "build": "babel ./server -d ./dist",
     "clean": "rm -rf dist",
     "create:db": "NODE_ENV=development babel-node ./server/db/runScript.js",
     "create:distributors": "NODE_ENV=development babel-node ./server/db/createDistributors.js",
