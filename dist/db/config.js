@@ -22,6 +22,6 @@ const myDatabaseConfig = {
   ssl: true
 }; // optimize if else code with tenary shortcut
 
-const pool = process.env.NODE_ENV === 'production' ? new _pg.Pool(process.env.DATABASE_URL) : new _pg.Pool(myDatabaseConfig);
+const pool = new _pg.Pool(myDatabaseConfig);
 var _default = pool;
 exports.default = _default;
