@@ -4,9 +4,7 @@
   "description": "Backend",
   "main": "app.js",
   "scripts": {
-    "prestart": "npm run create:db && npm run create:account && npm run create:bank && npm run create:distributors && npm run create:manufacturer && npm run create:product && npm run create:paymentoption",
     "start": "node ./dist/app.js",
-    "heroku-postbuild": "npm run build",
     "start:dev": "DEBUG=app nodemon ./server/app.js --exec babel-node",
     "build": "babel ./server -d ./dist",
     "clean": "rm -rf dist",
