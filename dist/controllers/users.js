@@ -30,6 +30,7 @@ class Users {
       accountid,
       location
     } = req.body;
+    const myAccountId = accountid.replace(/['"]+/g, '');
     const emailSearchQuery = {
       text: 'SELECT email FROM distributors WHERE email=$1',
       values: [`${email}`],
@@ -37,7 +38,7 @@ class Users {
     };
     const accountSearchQuery = {
       text: 'SELECT accountid FROM distributors WHERE accountid=$1',
-      values: [`${accountid}`],
+      values: [`${myAccountId}`],
       rowMode: 'array'
     };
     const isAlreadyRegistered = await _config.default.query(emailSearchQuery);
@@ -62,7 +63,7 @@ class Users {
     const {
       rows
     } = await _config.default.query(`INSERT INTO distributors ( name, email, logourl, userid, password, accountid, location )
-    VALUES ('${name}', '${email}', '${logourl}', '${userid}', '${hashedPassword}', ${accountid}
+    VALUES ('${name}', '${email}', '${logourl}', '${userid}', '${hashedPassword}', '${myAccountId}'
     , '${location}' ) RETURNING id, 
     name, email, logourl, userid, accountid, location`);
     (0, _mailGen.distrSignupMail)(email, name);
