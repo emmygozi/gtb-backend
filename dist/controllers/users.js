@@ -38,7 +38,7 @@ class Users {
     };
     const accountSearchQuery = {
       text: 'SELECT accountid FROM distributors WHERE accountid=$1',
-      values: [`${myAccountId}`],
+      values: [`'${myAccountId}'`],
       rowMode: 'array'
     };
     const isAlreadyRegistered = await _config.default.query(emailSearchQuery);
