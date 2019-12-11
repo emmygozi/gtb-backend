@@ -17,12 +17,15 @@ var _dotenv = require("dotenv");
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var _index = _interopRequireDefault(require("./routes/index"));
 
 const debugged = (0, _debug.default)('app');
 (0, _dotenv.config)();
 const app = (0, _express.default)();
 const port = process.env.PORT || 3000;
+app.use((0, _cors.default)());
 app.use((0, _morgan.default)('dev'));
 app.use(_bodyParser.default.json());
 app.use(_bodyParser.default.urlencoded({
