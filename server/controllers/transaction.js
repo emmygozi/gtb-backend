@@ -4,12 +4,30 @@ import sendSms from '../helpers/sendSms';
 
 class Transactions {
   static async getBankTransactions(req, res) {
-    const { rows } = await pool.query('select * from transaction inner join product on transaction.productid=product.id');
+    const { rows } = await pool.query('select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id');
     res.status(200).json({ status: 200, data: rows });
   }
 
   static async getManufacturerTransactions(req, res) {
-    const { rows } = await pool.query('select * from transaction inner join product on transaction.productid=product.id');
+    const { rows } = await pool.query('select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id');
+    // call sendmail & sms
+    res.status(200).json({ status: 200, data: rows });
+  }
+
+  static async getPendingManufacturerTransactions(req, res) {
+    const { rows } = await pool.query('select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id and a.status=\'pending\'');
+    // call sendmail & sms
+    res.status(200).json({ status: 200, data: rows });
+  }
+
+  static async getApprovedManufacturerTransactions(req, res) {
+    const { rows } = await pool.query('select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id and a.status=\'approved\'');
+    // call sendmail & sms
+    res.status(200).json({ status: 200, data: rows });
+  }
+
+  static async getDeliveredManufacturerTransactions(req, res) {
+    const { rows } = await pool.query('select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id and a.status=\'ready\'');
     // call sendmail & sms
     res.status(200).json({ status: 200, data: rows });
   }
@@ -17,7 +35,7 @@ class Transactions {
   static async getDistributorTransactions(req, res) {
     const { distributorid } = req.params;
 
-    const { rows } = await pool.query(`select * from transaction inner join product on transaction.productid=product.id where distributorid=${distributorid}`);
+    const { rows } = await pool.query(`select a.id id, a.quantity quantity, b.price price, a.total total, c.name distributor, a.productid productid, a.status status, a.dateadded dateadded from transaction a, product b, distributors c where a.productid=b.id and a.distributorid=c.id and distributorid=${distributorid}`);
     // call sendmail & sms
     res.status(200).json({ status: 200, data: rows });
   }
@@ -88,7 +106,7 @@ class Transactions {
     const {
       quantity, productid, distributorid, total, payoptionid
     } = req.body;
-
+    console.log(req.body);
     const { rows } = await pool
       .query(`INSERT INTO transaction ( quantity, productid, distributorid, total, payoptionid )
     VALUES ('${quantity}', '${productid}', '${distributorid}', '${total}', '${payoptionid}') RETURNING *`);

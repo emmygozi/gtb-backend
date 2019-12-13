@@ -13,6 +13,9 @@ router.post('/auth/distributor', Users.distrLogin);
 
 router.get('/bank', Transactions.getBankTransactions);
 router.get('/manufacturer', Transactions.getManufacturerTransactions);
+router.get('/manufacturer/pending', Transactions.getPendingManufacturerTransactions);
+router.get('/manufacturer/approved', Transactions.getApprovedManufacturerTransactions);
+router.get('/manufacturer/delivered', Transactions.getDeliveredManufacturerTransactions);
 router.get('/distributor/:distributorid', Transactions.getDistributorTransactions);
 router.post('/transaction', Authorization.authorize, Transactions.createOrder);
 router.patch('/transaction/:id', Authorization.authorize, Transactions.acceptOrDeclineTransactions);

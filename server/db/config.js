@@ -4,12 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const myDatabaseConfig = {
-  database: 'd3bv9i666c0m7l',
-  host: 'ec2-174-129-255-37.compute-1.amazonaws.com',
-  user: 'kdeootgcdpkkxx',
-  password: '4ee22406f9e72a39df497f96cd752efa5ebdf5c8dd5c1f3606f146d9c86d0497',
-  port: 5432,
-  ssl: true
+  database: process.env.LOCAL_DB_NAME,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT
 };
 
 // optimize if else code with tenary shortcut

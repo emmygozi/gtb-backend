@@ -11,7 +11,7 @@ class Users {
       name, email, logourl, userid, password, accountid, location
     } = req.body;
 
-    const myAccountId = accountid.replace(/['"]+/g, '');
+    console.log(req.body);
 
     const emailSearchQuery = {
       text: 'SELECT email FROM distributors WHERE email=$1',
@@ -21,7 +21,7 @@ class Users {
 
     const accountSearchQuery = {
       text: 'SELECT accountid FROM distributors WHERE accountid=$1',
-      values: [`'${myAccountId}'`],
+      values: [`${accountid}`],
       rowMode: 'array',
     };
 
@@ -40,7 +40,7 @@ class Users {
 
     const { rows } = await pool
       .query(`INSERT INTO distributors ( name, email, logourl, userid, password, accountid, location )
-    VALUES ('${name}', '${email}', '${logourl}', '${userid}', '${hashedPassword}', '${myAccountId}'
+    VALUES ('${name}', '${email}', '${logourl}', '${userid}', '${hashedPassword}', ${accountid}
     , '${location}' ) RETURNING id, 
     name, email, logourl, userid, accountid, location`);
 
